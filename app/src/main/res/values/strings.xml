@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">RandomMealApp</string>
+    <string name="app_title">Get your random meal</string>
+    <string name="generate_meal_btn">Generate</string>
+</resources>
