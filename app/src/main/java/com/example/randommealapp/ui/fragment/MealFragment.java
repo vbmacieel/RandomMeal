@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -76,8 +77,13 @@ public class MealFragment extends Fragment {
     }
 
     private void openUrlIntent(String mealUrl) {
-        Intent urlIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(mealUrl));
-        startActivity(urlIntent);
+        if (mealUrl == null) {
+            Toast.makeText(mBinding.getRoot().getContext(), "No url found!",
+                    Toast.LENGTH_SHORT).show();
+        } else {
+            Intent urlIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(mealUrl));
+            startActivity(urlIntent);
+        }
     }
 
     public static MealFragment newInstance() {
