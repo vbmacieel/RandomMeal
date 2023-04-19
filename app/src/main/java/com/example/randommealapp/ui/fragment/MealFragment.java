@@ -1,5 +1,7 @@
 package com.example.randommealapp.ui.fragment;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,13 +49,35 @@ public class MealFragment extends Fragment {
     }
 
     private void setMealCardView(Meal meal) {
+        mBinding.mealLayout.setVisibility(View.VISIBLE);
+
         mBinding.mealName.setText(meal.getStrMeal());
         mBinding.mealCategory.setText(meal.getCategory());
         mBinding.mealArea.setText(meal.getArea());
         Glide.with(mBinding.getRoot()).load(meal.getImageUrl()).into(mBinding.mealImage);
-        mBinding.mealVideoUrl.setText(meal.getVideoUrl());
-        mBinding.mealSiteUrl.setText(meal.getSiteUrl());
-        mBinding.mealLayout.setVisibility(View.VISIBLE);
+
+        handleSourceAndVideoClicks(meal);
+    }
+
+    private void handleSourceAndVideoClicks(Meal meal) {
+        mBinding.mealSource.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openUrlIntent(meal.getSiteUrl());
+            }
+        });
+
+        mBinding.mealVideo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openUrlIntent(meal.getVideoUrl());
+            }
+        });
+    }
+
+    private void openUrlIntent(String mealUrl) {
+        Intent urlIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(mealUrl));
+        startActivity(urlIntent);
     }
 
     public static MealFragment newInstance() {
